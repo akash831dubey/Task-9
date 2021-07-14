@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+
+        </title>
+    </head>
+    <link rel="stylesheet" href="./styles.css">
+<body>
+  <center>
+    <!-- <header>
+        <ul>
+         <li><a class="links" href="#user"><button class="signbutton" type="button">Sign in</button></a></li>
+           <li><a href="#grid"><img class="grid" src="https://cdn3.iconfinder.com/data/icons/navigation-and-settings/24/Material_icons-01-11-512.png" title="Google apps"></a></li>
+          <li><a href="#images">Images</a></li>
+          <li><a href="#gmail">Gmail</a></li>
+          </ul>  
+    </header> -->
+    <div class="logo">
+      <img alt="Google" src="k8s.png">
+    </div>
+    <div class="bar">
+      <input class="searchbar" type="text" title="Search" id="docker_input" onkeypress="mySearch(event)"  name="command" />
+      <a href="#"> <img class="voice" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Google_mic.svg/716px-Google_mic.svg.png" title="Search by Voice"></a>
+
+    </div>
+    <div class="bar1" id = "display">
+    <b>
+    <pre>
+waiting for yout request ...
+    </pre>
+    </b>
+    </div>
+    </div>
+    <div class="buttons">
+      <button class="button" type="button" onclick="mySearch()">Click to Run</button>
+      <button class="button" type="button" onclick="myHelp()">Help</button>
+     </div>
+  </center>
+
+  <script>
+      function mySearch(e){
+	      if (e.keyCode==13){
+
+            docker_inp = document.getElementById("docker_input")
+            docker_inp.value
+            console.log(docker_inp.value)
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET",'http://192.168.99.111/cgi-bin/gagan.py?command='+docker_inp.value,true);
+            xhr.send();
+	      
+            xhr.onload = function(){
+                var output = xhr.responseText;
+                document.getElementsByTagName("pre")[0].innerHTML=output;
+                document.getElementsByClassName('bar')[0].style = "border-bottom-left-radius: 0px; border-bottom-right-radius: 0;border-bottom: 3px;"
+            //    document.getElementsByClassName('bar')[0].style = "border-bottom-right-radius: 0;"
+            //     document.getElementsByClassName('bar')[0].style = "border-bottom: 3px;"
+            }
+	      }
+	      else{
+		      document.getElementsByTagName("pre")[0].innerHTML="";
+	      }
+      
+      }
+
+
+function myHelp(){
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET",'http://192.168.99.111/help.html',true);
+            xhr.send();
+	xhr.onload = function(){
+                var myoutput = xhr.responseText;
+		const parser = new DOMParser();
+		const newoutput = parser.parseFromString(myoutput, "text/html");
+		console.log(newoutput)
+		alert(newoutput.documentElement.textContent);
+	
+}}
+  </script>
+  </body>
